@@ -1,13 +1,24 @@
-<h1>Listing menus</h1>
+<h1>Меню</h1>
 
-<table class="table">
+<%
+   menus_array = []
+   @menus.each do |menu|
+     menus_array << menu.menu
+   end
+   menus_array = menus_array.uniq
+   menus_array.sort!
+   menus_array.each do |one_menu|
+%>
+
+<table class="table table-hover">
   <thead>
     <tr>
-      <th>Menu</th>
-      <th>Name</th>
-      <th>Part</th>
-      <th>Url foto</th>
-      <th>Price</th>
+      <!--<th>Menu</th>-->
+      <th><h4><%= one_menu %></h4></th>
+      <!--<th>Фотография</th>-->
+      <th>Блюдо</th>
+      <th>Состав</th>
+      <th>Цена</th>
       <th></th>
       <th></th>
       <th></th>
@@ -15,21 +26,23 @@
   </thead>
 
   <tbody>
-    <% @menus.each do |menu| %>
+    <% @menus.where("menu = ?", one_menu).each do |menu| %>
       <tr>
-        <td><%= menu.menu %></td>
+        <!--<td><%#= menu.menu %></td>-->
+        <td><%= image_tag(menu.url_foto, width: "120px") %></td>
+        <!--<td><%#= menu.url_foto %></td>-->
         <td><%= menu.name %></td>
         <td><%= menu.part %></td>
-        <td><%= menu.url_foto %></td>
         <td><%= menu.price %></td>
-        <td><%= link_to 'Show', menu %></td>
-        <td><%= link_to 'Edit', edit_menu_path(menu) %></td>
-        <td><%= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'подробнее', menu %></td>
+        <td><%= link_to 'ред.', edit_menu_path(menu) %></td>
+        <td><%= link_to 'удалить', menu, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<% end %>
 
 <br>
 
-<%= link_to 'New Menu', new_menu_path %>
+<%= link_to 'Добавить блюдо', new_menu_path, class: 'btn' %>
