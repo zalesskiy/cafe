@@ -13,6 +13,7 @@
     <![endif]-->
 
     <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag :defaults %>
 
     <!-- For third-generation iPad with high-resolution Retina display: -->
     <!-- Size should be 144 x 144 pixels -->
@@ -48,9 +49,15 @@
           </a>
           <a><%=link_to "Cafe", root_path, class:"brand"%></a>
           <div class="container-fluid nav-collapse">
-            <ul class="nav">
+            <ul class="nav" >
               <li><%= link_to "Меню", menus_path  %></li>
-              <li><%#= link_to "Link2", "/path2"  %></li>
+
+              <% if user_signed_in? %>
+                <li><%= link_to "Ваш e-mail: #{current_user.email}"  %>  </li>
+                <li><%= link_to "Выход", destroy_user_session_path, :method => :delete %></li>
+              <% else %>
+                <li><%= link_to "Вход", user_session_path %></li>
+              <% end %>
               <li><%#= link_to "Link3", "/path3"  %></li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -65,8 +72,6 @@
             <ul class="nav nav-list">
               <li class="nav-header">Sidebar</li>
               <li><%= link_to "Меню", menus_path  %></li>
-              <li><%#= link_to "Link2", "/path2"  %></li>
-              <li><%#= link_to "Link3", "/path3"  %></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
@@ -76,9 +81,9 @@
         </div>
       </div><!--/row-->
 
-      <footer>
-        <p>&copy; Company 2014</p>
-      </footer>
+      <!--<footer>-->
+        <!--<p>&copy; Company 2014</p>-->
+      <!--</footer>-->
 
     </div> <!-- /container -->
 

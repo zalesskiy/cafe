@@ -1,5 +1,7 @@
 <h1>Меню</h1>
 
+<%= render 'search_form' %>
+
 <%
    menus_array = []
    @menus.each do |menu|
@@ -34,9 +36,9 @@
         <td><%= menu.name %></td>
         <td><%= menu.part %></td>
         <td><%= menu.price %></td>
-        <td><%= link_to 'подробнее', menu %></td>
-        <td><%= link_to 'ред.', edit_menu_path(menu) %></td>
-        <td><%= link_to 'удалить', menu, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+        <td><%= link_to 'подробнее', menu if current_user.has_role? :admin%></td>
+        <td><%= link_to 'ред.', edit_menu_path(menu) if current_user.has_role? :admin%></td>
+        <td><%= link_to 'удалить', menu, method: :delete, data: { confirm: 'Вы уверены?' } if current_user.has_role? :admin%></td>
       </tr>
     <% end %>
   </tbody>
@@ -45,4 +47,4 @@
 
 <br>
 
-<%= link_to 'Добавить блюдо', new_menu_path, class: 'btn' %>
+<%= link_to 'Добавить блюдо', new_menu_path, class: 'btn' if current_user.has_role? :admin%>

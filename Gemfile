@@ -50,6 +50,11 @@ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootst
 #simple form
 gem 'simple_form'
 
+#пользователи
+gem 'devise'
+gem 'cancan'
+gem 'rolify'
+
 #для rvm
 gem 'rvm-capistrano'
 

@@ -1,10 +1,16 @@
 class MenusController < ApplicationController
+
   before_action :set_menu, only: [:show, :edit, :update, :destroy]
 
   # GET /menus
   # GET /menus.json
   def index
-    @menus = Menu.all
+    @menu = Menu.new
+    if params[:q]
+      @menus = Menu.where("name ILIKE :query OR part ILIKE :query OR menu ILIKE :query", {query: "%#{params[:q]}%"}, {query: "%#{params[:q]}%"}, {query: "%#{params[:q]}%"})
+    else
+      @menus = Menu.all
+    end
   end
 
   # GET /menus/1
@@ -14,11 +20,13 @@ class MenusController < ApplicationController
 
   # GET /menus/new
   def new
+
     @menu = Menu.new
   end
 
   # GET /menus/1/edit
   def edit
+
   end
 
   # POST /menus
